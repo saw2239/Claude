@@ -1,0 +1,56 @@
+# Candidate packages to disable on a TCL 75Q77K (Google TV 12), Apple TV household.
+#
+# NOT VERIFIED ON A 75Q77K YET. Based on the community list for the TCL 55" 2023 G10
+# Google TV (Google TV 12) in https://github.com/Gathin23/tv-vibehack
+# (examples/tcl-g10-google-tv/debloat.txt), adjusted for a TV that is mostly used as an
+# Apple TV display. Package names can differ by model and firmware: only disable what
+# actually exists on your TV, and review each line first.
+#
+# Format: one package per line, "#" starts a comment. Lines starting with "# opt:" are
+# optional: remove the "# opt: " prefix to include them.
+#
+# Apply:  scripts/disable.sh <ip> candidates.txt
+# Undo:   scripts/restore.sh <ip> candidates.txt
+#
+# Known quirks on the G10 (may apply here too):
+# - The red "TV" tile disappears from the Google TV Home row (likely partnercustomizer).
+#   TV is still in the Apps row and the Inputs menu.
+# - Disabling dreamx leaves the screensaver pointing at it. Fix with:
+#   adb shell settings put secure screensaver_components com.android.dreams.basic/.Colors
+# - screencap is blank while HDMI or Live TV is on screen. Press Home first.
+
+# TCL content, ads and promos
+com.tcl.tv.plus                        # TCL TV+ content app
+com.tcl.channelplus                    # TCL Live FAST channels
+com.tcl.tv.tclhome_passive             # pushes TCL content to the home screen at boot
+com.tcl.partnercustomizer              # TCL tweaks to Google TV home rows
+com.tcl.interactive                    # TCL TIAS background service
+com.tcl.smartlink.core                 # bundles a silent app installer
+
+# Retail demo / store mode
+com.tcl.exhibit
+com.tcl.esticker
+
+# Preloaded apps and services
+com.tcl.ocean.instructions             # e-manual
+com.tcl.repairguide
+android.autoinstalls.config.google.gtvpai   # auto-installs promoted apps
+com.google.android.feedback
+com.google.android.apps.tv.dreamx      # ambient mode screensaver, see quirk above
+com.google.android.tv.remote.service   # Google TV phone-app remote (NOT the physical remote)
+
+# Redundant with the Apple TV
+com.tcl.airplay2                       # TCL AirPlay receiver
+com.realtek.airplay2
+
+# Optional, depending on your answers
+# opt: com.tcl.gamebar                 # game overlay; keep if you game on the TV's own inputs
+# opt: com.tcl.ui_mediaCenter          # USB media player; keep if you play files from USB
+# opt: com.tcl.UpdatePeripheral        # TCL soundbar updates; keep if you own one
+# opt: com.google.android.marvin.talkback   # screen reader; keep if anyone needs it
+# opt: com.netflix.ninja               # Netflix (with the next line)
+# opt: com.netflix.tokenmanager
+# opt: com.amazon.amazonvideo.livingroom   # Prime Video
+# opt: com.google.android.youtube.tv
+# opt: com.google.android.katniss      # Google Assistant / voice search on the TV
+# opt: com.google.android.apps.mediashell  # Chromecast built-in
